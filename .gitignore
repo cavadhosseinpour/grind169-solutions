@@ -1,0 +1,6 @@
+.DS_Store
+*.dSYM/
+*.out
+
+# Block your specific compiled binary files
+twoSum
