@@ -4,3 +4,35 @@
 
 # Block your specific compiled binary files
 twoSum
+
+# Compiled Object files
+*.o
+*.ko
+*.obj
+*.gch
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.dylib
+*.so
+*.dylib.*
+*.so.*
+
+# Executables
+*.out
+*.app
+*.exe
+
+# Build Directories (e.g., CMake, Xcode)
+build/
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Makefile
+cmake_install.cmake
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
