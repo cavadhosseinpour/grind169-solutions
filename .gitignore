@@ -36,3 +36,12 @@ cmake_install.cmake
 *.xcodeproj
 *.xcworkspace
 xcuserdata/
+
+# Step 1: Ignore absolutely everything in the directory
+*
+
+# Step 2: Un-ignore all files that actually have an extension (like .cpp, .h)
+!*.*
+
+# Step 3: Un-ignore subdirectories so Git can still look inside them
+!*/
