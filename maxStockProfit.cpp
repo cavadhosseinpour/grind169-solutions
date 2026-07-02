@@ -1,7 +1,7 @@
 #include <vector>
 #include <iostream>
 
-class Solution {
+class Solution{
 public:
     int maxProfit(std::vector<int>& prices) {
         if (prices.size() < 2) return 0;
