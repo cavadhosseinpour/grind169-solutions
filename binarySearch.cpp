@@ -29,7 +29,7 @@ public:
         }
         return -1;
     }
-    
+
     /*
     Leetcode 875. Koko eating bananas
     Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas.
@@ -67,6 +67,55 @@ public:
         }
         return mid;
     }
+
+    /*
+    2529. Maximum Count of Positive Integer and Negative Integer
+    Given an array nums sorted in non-decreasing order,
+    return the maximum between the number of positive integers and the number of negative integers.
+    In other words, if the number of positive integers in nums is pos and the number of negative integers is neg,
+    then return the maximum of pos and neg.
+    Note that 0 is neither positive nor negative.
+    My note: you are essentially looking for where the boundary of 0 is twice separately,
+    to see where the index of first negative or positive element in the middle is, ignoring 0 values.
+    */
+
+    int maximumCount(std::vector<int>& nums)
+    {
+        if (nums.size() == 0) return 0;
+        int left = 0;
+        int right = nums.size() - 1;
+        int neg = 0, pos = 0;
+        while (left <= right)
+        {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < 0)
+            {
+                neg = mid + 1;
+                left = mid + 1;
+            }
+            else
+            {
+                right = mid - 1;
+            }
+        }
+
+        left = 0;
+        right = nums.size() - 1;
+        while (left <= right)
+        {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > 0)
+            {
+                right = mid - 1;
+                pos = nums.size() - mid;
+            }
+            else
+            {
+                left = mid + 1;
+            }
+        }
+        return (pos > neg) ? pos : neg;
+    }
 };
 
 int main()
@@ -77,5 +126,6 @@ int main()
     std::cout << "The result is: " << sol.search(nums, target) << std::endl;
     std::vector<int> bananas {3, 6, 7, 11};
     std::cout << "The minimum speed Koko can eat bananas is: " << sol.searchKoko(bananas, 8) << std::endl;
+    std::cout << "The maximum between pos int vs neg int is: " << sol.maximumCount(nums) << std::endl;
     return 0;
 }
