@@ -12,7 +12,7 @@
 - What if the tree only has 1 or 2 nodes?
 
 ## 3. Code (Iterative vs. Recursive)
-[Insert clean, commented code here]
+- Below
 
 ## 4. Complexity Analysis
 - **Time Complexity:** O(H) because we only traverse down the height of the tree.
