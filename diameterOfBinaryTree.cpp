@@ -1,4 +1,7 @@
 #include <iostream>
+#include <stack>
+#include <unordered_map>
+#include <algorithm>
 
 /**
  * @file Solution.cpp
@@ -63,6 +66,59 @@ public:
 
         return max_diameter;
     }
+
+    /*
+    * Writing this code using stacks instead of recursive call stacks.
+    * @file IterativeSolution.cpp
+    * @brief LeetCode 543 - Diameter of Binary Tree (Iterative Stack Approach)
+    * 
+    * Foundational Algorithmic Insights:
+    * This approach mimics the post-order traversal using an explicit std::stack. 
+    * A hash map tracks the computed heights of processed nodes. A node is only 
+    * popped and fully evaluated after both its left and right children have had 
+    * their heights calculated and stored in the map.
+    * 
+    * Complexity Analysis:
+    * - Time Complexity: O(N)
+    *   Each node is pushed and popped from the stack a constant number of times.
+    * - Space Complexity: O(N)
+    *   The hash map stores the height mapping for up to N nodes.
+    */
+
+    int diameterOfBinaryTree_stack(TreeNode* root)
+    {
+        if (!root) return 0;
+
+        int max_diameter = 0;
+        std::stack<TreeNode*> traversl_stack;
+        std::unordered_map<TreeNode*, int> node_heights;
+
+        traversl_stack.push(root);
+
+        while (!traversl_stack.empty())
+        {
+            TreeNode* current_node = traversl_stack.top();
+            if(current_node->left && !node_heights.contains(current_node->left))
+            {
+                traversl_stack.push(current_node->left);
+            }
+            else if (current_node->right && !node_heights.contains(current_node->right))
+            {
+                traversl_stack.push(current_node->right);
+            }
+            else
+            {
+                traversl_stack.pop();
+                int left_depth = (current_node->left) ? node_heights[current_node->left] : 0;
+                int right_depth = (current_node->right) ? node_heights[current_node->right] : 0;
+
+                if (left_depth + right_depth > max_diameter) max_diameter = left_depth + right_depth;
+
+                node_heights[current_node] = 1 + std::max(left_depth, right_depth);
+            }
+        }
+        return max_diameter;
+    }
 };
 
 int main()
@@ -78,6 +134,7 @@ int main()
     TreeNode root(4, &root3, &root6);
 
     std::cout << "The max diiameter of TreeNode is: " << sol.diameterOfBinaryTree(&root) << "\n";
+    std::cout << "The max diiameter of TreeNode is: " << sol.diameterOfBinaryTree_stack(&root) << "\n";
 
     return 0;
 }
