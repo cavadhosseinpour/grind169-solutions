@@ -95,6 +95,53 @@ public:
     }
 };
 
+/*
+* Recursive approach is added here which uses only one stack.
+* When a program runs a recursive function, the computer uses an underlying
+* system feature called the Call Stack to keep track of active functions.
+* By using recursion, you are secretly using the computer's built-in stack as your second stack!
+
+class MyQueue
+{
+private:
+    std::stack<int> s; // Only ONE explicit stack
+
+public:
+    void push(int x)
+    {
+        s.push(x); // O(1) Push
+    }
+    
+    int pop()
+    {
+        // 1. Grab the top item
+        int top_element = s.top();
+        s.pop();
+        
+        // 2. Base Case: If the stack is now empty, this top item 
+        // was actually the bottom item (the oldest item / front of queue)
+        if (s.empty()) {
+            return top_element; 
+        }
+        
+        // RECURSION HAPPENS HERE:
+        // 3. Recursive Step: Dig deeper to find the bottom item
+        // We pause this current execution and launch a brand new instance 
+        // of MyQueue::pop() to deal with the remaining stack.
+        int actual_front = pop(); 
+        
+        // 4. On the way back up out of recursion, put the items back
+        s.push(top_element); 
+        
+        // 5. Return the oldest item we found at the very bottom
+        return actual_front;
+    }
+    
+    // ... peek() would look very similar, and empty() is just s.empty()
+};
+
+*/
+
 /**
  * Your MyQueue object will be instantiated and called as such:
  * MyQueue* obj = new MyQueue();
