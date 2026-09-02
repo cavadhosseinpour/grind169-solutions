@@ -39,12 +39,32 @@ public:
     Koko likes to eat slowly but still wants to finish eating all the bananas before the guards return.
     Return the minimum integer k such that she can eat all the bananas within h hours.
     */
+
+    /**
+ * @file KokoEatingBananas.cpp
+ * @brief Solution for LeetCode 875: Koko Eating Bananas
+ *
+ * Foundational Algorithmic Insights:
+ * The problem requires finding the minimum eating speed 'k' such that Koko can eat all 
+ * bananas within 'h' hours. The feasibility of speed 'k' is monotonic: if Koko can finish 
+ * at speed 'k', she can finish at any speed greater than 'k'. This allows us to use 
+ * Binary Search on the solution space range [1, max(piles)].
+ *
+ * Complexity Analysis:
+ * - Time Complexity: O(N * log(M))
+ *   Where N is the number of elements in 'piles' and M is the maximum value in 'piles'. 
+ *   The binary search takes log(M) steps, and each step iterates through all N piles to 
+ *   compute the total hours.
+ * - Space Complexity: O(1)
+ *   The algorithm runs in-place, using a constant amount of extra memory for pointers 
+ *   and loop counters.
+ */
     int searchKoko(std::vector<int>& nums, int target)
     {
         if (nums.size() == 0) return -1;
 
         int left = 1;
-        int right = std::ranges::max(nums);
+        int right = std::ranges::max(nums); // or you can use: *std::max_element(piles.begin(), piles.end())
         int mid = 0;
 
         while (left <= right)
@@ -65,7 +85,7 @@ public:
                 left = mid + 1;
             }
         }
-        return mid;
+        return left;
     }
 
     /*
